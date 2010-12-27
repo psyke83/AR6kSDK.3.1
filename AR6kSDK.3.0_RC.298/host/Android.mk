@@ -30,7 +30,7 @@ export  ATH_OS_SUB_TYPE=linux_2_6
 ATH_ANDROID_ROOT:= $(CURDIR)
 export ATH_SRC_BASE:=$(ATH_ANDROID_ROOT)/$(BOARD_WLAN_ATHEROS_SDK)/host
 #ATH_CROSS_COMPILE_TYPE:=$(ATH_ANDROID_ROOT)/$(TARGET_TOOLS_PREFIX)
-ATH_CROSS_COMPILE_TYPE:=$(ATH_ANDROID_ROOT)/prebuilt/linux-x86/toolchain/arm-eabi-4.3.1/bin/arm-eabi-
+ATH_CROSS_COMPILE_TYPE:=$(ATH_ANDROID_ROOT)/prebuilt/linux-x86/toolchain/arm-eabi-4.4.0/bin/arm-eabi-
 ATH_TARGET_OUTPUT:=$(ATH_ANDROID_ROOT)
 
 ifeq ($(TARGET_PRODUCT),$(filter $(TARGET_PRODUCT),qsd8250_surf qsd8250_ffa msm7627_surf msm7627_ffa msm7625_ffa msm7625_surf msm7630_surf GT-I5500))
@@ -39,11 +39,12 @@ else
 # Comment out the following variable for your platform 
 # Link your kernel into android SDK directory as 'kernel' directory
 # export  ATH_LINUXPATH= [Your android/kernel path ]
+export ATH_LINUXPATH := $(ATH_ANDROID_ROOT)/kernel_imx
 endif 
 export  ATH_ARCH_CPU_TYPE=arm
 export  ATH_BUS_SUBTYPE=linux_sdio
 export  ATH_ANDROID_ENV=yes
-export  ATH_SOFTMAC_FILE_USED=yes
+export  ATH_SOFTMAC_FILE_USED=no
 export  ATH_CFG80211_ENV=no
 export  ATH_DEBUG_DRIVER=yes
 export  ATH_HTC_RAW_INT_ENV=yes
@@ -80,11 +81,11 @@ $(mod_cleanup) :
 	rm -f `find $(ATH_TARGET_OUTPUT)/$(ATH_ANDROID_SRC_BASE) -name "*.o"`
 	mkdir -p $(TARGET_OUT)/wifi/ath6k/AR6003/hw2.0/
     
-mod_file := $(TARGET_OUT)/wifi/ar6000.ko
+mod_file := $(TARGET_OUT)/lib/modules/ar6000.ko
 $(mod_file) : $(mod_cleanup) $(TARGET_PREBUILT_KERNEL) $(ACP)
 	$(MAKE) ARCH=arm CROSS_COMPILE=$(ATH_CROSS_COMPILE_TYPE) -C $(ATH_LINUXPATH) ATH_HIF_TYPE=$(ATH_HIF_TYPE) SUBDIRS=$(ATH_SRC_BASE)/os/linux modules
-	$(ACP) $(ATH_TARGET_OUTPUT)/$(ATH_ANDROID_SRC_BASE)/host/os/linux/ar6000.ko $(TARGET_OUT)/wifi/
-	$(ATH_CROSS_COMPILE_TYPE)strip -g -S -d $(TARGET_OUT)/wifi/ar6000.ko
+	$(ACP) $(ATH_TARGET_OUTPUT)/$(ATH_ANDROID_SRC_BASE)/host/os/linux/ar6000.ko $(TARGET_OUT)/lib/modules/ar6000.ko
+	$(ATH_CROSS_COMPILE_TYPE)strip -g -S -d $(TARGET_OUT)/lib/modules/ar6000.ko
 
 ALL_PREBUILT += $(mod_file)
 
