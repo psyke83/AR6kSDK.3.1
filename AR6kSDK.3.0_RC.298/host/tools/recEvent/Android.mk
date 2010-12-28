@@ -31,7 +31,7 @@ LOCAL_C_INCLUDES := \
 LOCAL_CFLAGS+=
 LOCAL_SRC_FILES:= recEvent.c
 LOCAL_MODULE := recEvent
-
+LOCAL_MODULE_TAGS := optional
 include $(BUILD_EXECUTABLE)
 
 

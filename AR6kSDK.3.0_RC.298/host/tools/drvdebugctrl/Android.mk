@@ -30,6 +30,6 @@ LOCAL_C_INCLUDES := \
 LOCAL_CFLAGS+= 
 LOCAL_SRC_FILES:= debugctrl.c
 LOCAL_MODULE := drvdebugctrl
-
+LOCAL_MODULE_TAGS := optional
 include $(BUILD_EXECUTABLE)
 

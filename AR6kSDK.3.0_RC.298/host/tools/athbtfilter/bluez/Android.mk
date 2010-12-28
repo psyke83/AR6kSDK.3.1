@@ -25,6 +25,7 @@ include $(CLEAR_VARS)
 
 ifeq ($(AR6K_PREBUILT_HCIUTILS_LIB),true)
 LOCAL_PREBUILT_LIBS := hciutils.a
+LOCAL_MODULE_TAGS := optional
 include $(BUILD_MULTI_PREBUILT)
 endif
 
@@ -75,7 +76,7 @@ LOCAL_CFLAGS+= \
 
 
 LOCAL_MODULE := abtfilt
-
+LOCAL_MODULE_TAGS := optional
 #LOCAL_MODULE_PATH := $(TARGET_OUT_OPTIONAL_EXECUTABLES)
 
 include $(BUILD_EXECUTABLE)
