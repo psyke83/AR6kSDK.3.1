@@ -84,6 +84,7 @@ $(mod_cleanup) :
 mod_file := $(TARGET_OUT)/lib/modules/ar6000.ko
 $(mod_file) : $(mod_cleanup) $(TARGET_PREBUILT_KERNEL) $(ACP)
 	$(MAKE) ARCH=arm CROSS_COMPILE=$(ATH_CROSS_COMPILE_TYPE) -C $(ATH_LINUXPATH) ATH_HIF_TYPE=$(ATH_HIF_TYPE) SUBDIRS=$(ATH_SRC_BASE)/os/linux modules
+	mkdir -p $(TARGET_OUT)/lib/modules/
 	$(ACP) $(ATH_TARGET_OUTPUT)/$(ATH_ANDROID_SRC_BASE)/host/os/linux/ar6000.ko $(TARGET_OUT)/lib/modules/ar6000.ko
 	$(ATH_CROSS_COMPILE_TYPE)strip -g -S -d $(TARGET_OUT)/lib/modules/ar6000.ko
 
