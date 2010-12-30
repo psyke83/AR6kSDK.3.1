@@ -45,6 +45,7 @@ LOCAL_SRC_FILES:= $(abtfilt_SOURCES)
 LOCAL_SHARED_LIBRARIES := \
 	 	libdbus \
 		libbluetooth \
+		libdl \
 		libcutils
 
 ifeq ($(AR6K_PREBUILT_HCIUTILS_LIB),true)
@@ -65,7 +66,7 @@ LOCAL_C_INCLUDES := \
 	$(call include-path-for, bluez-libs)
 
 ifneq ($(PLATFORM_VERSION),$(filter $(PLATFORM_VERSION),1.5 1.6))
-LOCAL_C_INCLUDES += external/bluetooth/bluez/include/bluetooth
+LOCAL_C_INCLUDES += external/bluetooth/bluez/lib/bluetooth
 LOCAL_CFLAGS+=-DBLUEZ4_3
 else
 LOCAL_C_INCLUDES += external/bluez/libs/include/bluetooth

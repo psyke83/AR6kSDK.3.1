@@ -200,7 +200,7 @@ static void dump_to_console(const char *format, va_list args)
     char buffer[384];
     
     vsprintf(buffer,format,args);
-    printf(buffer);    
+    printf("%s", buffer);    
     
 }
 
