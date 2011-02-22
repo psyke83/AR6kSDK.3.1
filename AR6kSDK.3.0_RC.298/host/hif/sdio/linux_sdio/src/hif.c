@@ -923,7 +923,7 @@ void HIFMaskInterrupt(HIF_DEVICE *device)
     }
     ret = sdio_release_irq(device->func);
     sdio_release_host(device->func);
-    AR_DEBUG_ASSERT(ret == 0);
+    /* AR_DEBUG_ASSERT(ret == 0); */
 }
 
 BUS_REQUEST *hifAllocateBusRequest(HIF_DEVICE *device)
@@ -1181,7 +1181,7 @@ static void hifDeviceRemoved(struct sdio_func *func)
     CleanupHIFScatterResources(device);
      
     delHifDevice(device);
-    AR_DEBUG_ASSERT(status == A_OK);
+    /* AR_DEBUG_ASSERT(status == A_OK); */
     AR_DEBUG_PRINTF(ATH_DEBUG_TRACE, ("AR6000: -hifDeviceRemoved\n"));
 }
 
