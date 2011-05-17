@@ -1,0 +1,10 @@
+
+# This file is used to build a dataset patch that installs the FPGA board data
+# for McKinley
+#
+
+
+#DsetID	Address		File						Version
+
+0x1 $WORKAREA/host/support/fakeBoardData_MCKINLEY.bin compress
+
