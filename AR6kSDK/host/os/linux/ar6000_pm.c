@@ -172,7 +172,6 @@ static void ar6000_wow_suspend(AR_SOFTC_T *ar)
     }
 
     ar6000_TxDataCleanup(ar); /* IMPORTANT, otherwise there will be 11mA after listen interval as 1000*/
-    ar->arWowState = WLAN_WOW_STATE_SUSPENDING;
 
     for(j = 0; j< num_device; j++) 
     {
@@ -343,6 +342,8 @@ static void ar6000_wow_suspend(AR_SOFTC_T *ar)
         AR_DEBUG_PRINTF(ATH_DEBUG_ERR,("Fail to set host asleep\n"));
     }
 
+    ar->arWowState = WLAN_WOW_STATE_SUSPENDING;
+
     if (ar->arTxPending[ar->arControlEp]) {
         A_UINT32 timeleft = wait_event_interruptible_timeout(arPriv->arEvent,
         ar->arTxPending[ar->arControlEp] == 0, wmitimeout * HZ);
@@ -479,7 +480,7 @@ A_STATUS ar6000_power_change_ev(void *context, A_UINT32 config)
 static irqreturn_t
 ar6000_wow_irq(int irq, void *dev_id)
 {
-    gpio_clear_detect_status(wow_irq);
+    AR_DEBUG_PRINTF(ATH_DEBUG_PM, ("ar6000: got ar6000 Wake on Wireless IRQ"));
 #ifdef CONFIG_HAS_WAKELOCK
     wake_lock_timeout(&ar6k_wow_wake_lock, 3*HZ);
 #else

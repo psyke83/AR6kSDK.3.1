@@ -107,7 +107,7 @@
  * Define GPIO number for WoW in your platform other than zero 
  * Wake lock will be called when GPIO asserted. 
  */
-#define PLAT_WOW_GPIO_PIN                  0
+#define PLAT_WOW_GPIO_PIN                  111
 
 /*
  * This configuration item for the WOW patterns in AP mode
