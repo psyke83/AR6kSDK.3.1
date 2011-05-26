@@ -158,6 +158,7 @@ typedef struct timer_list               A_TIMER;
 } while (0)
 
 #define A_DELETE_TIMER(pTimer) do {                             \
+	  del_timer_sync((pTimer));				\
 } while (0)
 
 /*

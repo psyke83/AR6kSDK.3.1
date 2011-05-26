@@ -652,6 +652,7 @@ typedef struct ar6_softc_sta {
     WMI_SCAN_PARAMS_CMD     scParams;
     A_BOOL                  scanSpecificSsid;
     A_BOOL                  wpaOffloadEnabled;
+	A_BOOL              disconnect_timer_inited;
 }AR_SOFTC_STA_T;
 
 typedef struct ar6_softc_dev {

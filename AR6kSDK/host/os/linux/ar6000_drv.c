@@ -171,7 +171,7 @@ unsigned int num_device=1;
 unsigned char ar6k_init=FALSE;
 unsigned int rtc_reset_only_on_exit=0;
 unsigned int mac_addr_method=0;
-A_BOOL avail_ev_called=FALSE;
+/* A_BOOL avail_ev_called=FALSE; */
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,0)
 module_param_string(ifname, ifname, sizeof(ifname), 0644);
@@ -1819,12 +1819,12 @@ ar6000_avail_ev(void *context, void *hif_handle)
      * multiple AR600x devices have been inserted into the system.
      * We do not support more than one AR600x device at this time.
      */
-    if (avail_ev_called) {
-        AR_DEBUG_PRINTF(ATH_DEBUG_ERR, ("ERROR: More than one AR600x device not supported by driver\n"));
-        return A_ERROR;
-    }
+    /* if (avail_ev_called) { */
+    /*     AR_DEBUG_PRINTF(ATH_DEBUG_ERR, ("ERROR: More than one AR600x device not supported by driver\n")); */
+    /*     return A_ERROR; */
+    /* } */
 
-    avail_ev_called = TRUE;
+    /* avail_ev_called = TRUE; */
 
     AR_DEBUG_PRINTF(ATH_DEBUG_INFO,("ar6000_available\n"));
 
@@ -2332,7 +2332,6 @@ exit:
 void
 ar6000_stop_endpoint(AR_SOFTC_T *ar, A_BOOL keepprofile, A_BOOL getdbglogs)
 {
-
     AR_SOFTC_DEV_T *arPriv ;
     A_UINT8 i;
 
@@ -7064,7 +7063,11 @@ ar6000_init_mode_info(AR_SOFTC_DEV_T *arPriv)
         arSta->scParams.shortScanRatio = WMI_SHORTSCANRATIO_DEFAULT;
         arSta->scParams.scanCtrlFlags = DEFAULT_SCAN_CTRL_FLAGS;
         A_MEMZERO(arSta->arReqBssid, sizeof(arSta->arReqBssid));
-        A_INIT_TIMER(&arSta->disconnect_timer, disconnect_timer_handler, arPriv->arNetDev);
+	if (!arSta->disconnect_timer_inited) {
+		A_INIT_TIMER(&arSta->disconnect_timer, disconnect_timer_handler, arPriv->arNetDev);
+		arSta->disconnect_timer_inited = 1;
+	} else
+		A_UNTIMEOUT(&arSta->disconnect_timer);
     }
 }
 
