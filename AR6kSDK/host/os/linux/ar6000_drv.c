@@ -149,7 +149,7 @@ unsigned int testmode =0;
 unsigned int firmware_bridge = 0;
 
 unsigned int irqprocmode = HIF_DEVICE_IRQ_SYNC_ONLY;/*HIF_DEVICE_IRQ_ASYNC_SYNC; */
-unsigned int panic_on_assert = 1;
+unsigned int panic_on_assert = 0;
 unsigned int nohifscattersupport = NOHIFSCATTERSUPPORT_DEFAULT;
 
 unsigned int setuphci = SETUPHCI_DEFAULT;

@@ -378,7 +378,7 @@ wow_not_connected:
         }
         if (ar->arWmiReady && ar->arWlanState==WLAN_ENABLED && needWow) {
             ar6000_wow_suspend(ar);
-            status = A_EBUSY;
+            status = A_OK;
             AR_DEBUG_PRINTF(ATH_DEBUG_PM,("%s:Suspend for wow mode %d\n", __func__, ar->arWlanPowerState));
         } else {
             pmmode = ar->arWow2Config;
@@ -402,10 +402,12 @@ wow_not_connected:
             status = A_OK; 
         } else {
             status = A_EBUSY; /* don't let mmc call sdio_init after resume */
-        } 
+	    AR_DEBUG_PRINTF(ATH_DEBUG_PM, ("suspend with arWlanoff\n"));
+        }
         break;
     }
 
+    AR_DEBUG_PRINTF(ATH_DEBUG_PM, ("ar6000_suspend return %d", status));
     return status;
 }
 
