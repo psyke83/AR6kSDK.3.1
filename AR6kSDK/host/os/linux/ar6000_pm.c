@@ -29,6 +29,8 @@
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,15)
 #include <linux/platform_device.h>
+#include <linux/mmc/sdio_func.h>
+#include <linux/mmc/pm.h>
 #endif
 #include "wlan_config.h"
 
@@ -64,6 +66,8 @@ extern void android_ar6k_check_wow_status(AR_SOFTC_T *ar, struct sk_buff *skb, A
 #undef ATH_MODULE_NAME
 #define ATH_MODULE_NAME pm
 #define  ATH_DEBUG_PM       ATH_DEBUG_MAKE_MODULE_MASK(0)
+
+#define sdio_func_id(f)		(dev_name(&(f)->dev))
 
 #ifdef DEBUG
 static ATH_DEBUG_MASK_DESCRIPTION pm_debug_desc[] = {
@@ -377,9 +381,28 @@ wow_not_connected:
             }
         }
         if (ar->arWmiReady && ar->arWlanState==WLAN_ENABLED && needWow) {
-            ar6000_wow_suspend(ar);
-            status = A_OK;
-            AR_DEBUG_PRINTF(ATH_DEBUG_PM,("%s:Suspend for wow mode %d\n", __func__, ar->arWlanPowerState));
+		struct sdio_func *func = container_of(ar->osDevInfo.pOSDevice, struct sdio_func, dev);
+		mmc_pm_flag_t flags = sdio_get_host_pm_caps(func);
+		if (!(flags & MMC_PM_KEEP_POWER)) {
+			AR_DEBUG_PRINTF(ATH_DEBUG_PM, ("%s: host driver don't support MMC_PM_KEEP_POWER\n", sdio_func_id(func)));
+			status = A_EINVAL;
+			break;
+		}
+
+		status = sdio_set_host_pm_flags(func, MMC_PM_KEEP_POWER);
+		if (status != 0) {
+			AR_DEBUG_PRINTF(ATH_DEBUG_PM, ("%s: can't set host pm flags:%d\n", sdio_func_id(func), status));
+			status = A_EBUSY;
+			break;
+		}
+		AR_DEBUG_PRINTF(ATH_DEBUG_PM, ("%s:Suspend for wow mode %d\n", __func__, ar->arWlanPowerState));
+		ar6000_wow_suspend(ar);
+		status = sdio_set_host_pm_flags(func, MMC_PM_WAKE_SDIO_IRQ);
+		if (status != 0) {
+			AR_DEBUG_PRINTF(ATH_DEBUG_PM, ("%s: can't set host pm flags:%d\n", sdio_func_id(func), status));
+			status = A_EBUSY;
+			break;
+		}
         } else {
             pmmode = ar->arWow2Config;
             goto wow_not_connected;
