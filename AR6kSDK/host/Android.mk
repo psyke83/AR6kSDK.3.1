@@ -23,6 +23,14 @@ LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
 ATH_ANDROID_SRC_BASE:= $(BOARD_WLAN_ATHEROS_SDK)
+
+# WOW GPIO
+ifneq ($(BOARD_WLAN_ATHEROS_WOW_GPIO),)
+board_wow_gpio = $(BOARD_WLAN_ATHEROS_WOW_GPIO)
+else
+board_wow_gpio = 0
+endif
+
 export  ATH_BUILD_TYPE=ANDROID_ARM_NATIVEMMC
 export  ATH_BUS_TYPE=sdio
 export  ATH_OS_SUB_TYPE=linux_2_6
@@ -96,7 +104,7 @@ $(mod_cleanup) :
 
 mod_file := $(TARGET_OUT)/wifi/ar6000.ko
 $(mod_file) : $(mod_cleanup) $(TARGET_PREBUILT_KERNEL) $(ACP)
-	$(MAKE) ARCH=arm CROSS_COMPILE=$(ATH_CROSS_COMPILE_TYPE) -C $(ATH_LINUXPATH) ATH_HIF_TYPE=$(ATH_HIF_TYPE) BOARD_WIFI_WOW_GPIO=111 SUBDIRS=$(ATH_SRC_BASE)/os/linux modules
+	$(MAKE) ARCH=arm CROSS_COMPILE=$(ATH_CROSS_COMPILE_TYPE) -C $(ATH_LINUXPATH) ATH_HIF_TYPE=$(ATH_HIF_TYPE) PLAT_WOW_GPIO_PIN=$(board_wow_gpio) SUBDIRS=$(ATH_SRC_BASE)/os/linux modules
 	$(ACP) $(ATH_TARGET_OUTPUT)/$(ATH_ANDROID_SRC_BASE)/host/os/linux/ar6000.ko $(TARGET_OUT)/wifi/
 
 ALL_PREBUILT += $(mod_file)
