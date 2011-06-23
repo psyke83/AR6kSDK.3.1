@@ -2436,7 +2436,7 @@ ar6000_stop_endpoint(AR_SOFTC_T *ar, A_BOOL keepprofile, A_BOOL getdbglogs)
    /* try to reset the device if we can
     * The driver may have been configure NOT to reset the target during
     * a debug session */
-        AR_DEBUG_PRINTF(ATH_DEBUG_ANY,(" Attempting to reset target on instance destroy.... \n"));
+	    // AR_DEBUG_PRINTF(ATH_DEBUG_ANY,(" Attempting to reset target on instance destroy.... \n"));
         if (ar->arHifDevice != NULL) {
             /*
              * Do only mbox reset for Venus until we can figure out what's wrong with coldReset
@@ -2445,7 +2445,9 @@ ar6000_stop_endpoint(AR_SOFTC_T *ar, A_BOOL keepprofile, A_BOOL getdbglogs)
              */
             /* A_BOOL coldReset = ((ar->arTargetType == TARGET_TYPE_AR6003)|| (ar->arTargetType == TARGET_TYPE_MCKINLEY)) ? TRUE: FALSE; */
             A_BOOL coldReset = (ar->arTargetType == TARGET_TYPE_MCKINLEY) ? TRUE: FALSE;
-            ar6000_reset_device(ar->arHifDevice, ar->arTargetType, TRUE, coldReset);
+	    /* Don't reset device, since we already power off !!!!
+	     * send this sdio will cause can't suspend. */
+            //ar6000_reset_device(ar->arHifDevice, ar->arTargetType, TRUE, coldReset);
         }
     } else {
         AR_DEBUG_PRINTF(ATH_DEBUG_INFO,(" Host does not want target reset. \n"));
@@ -5545,7 +5547,7 @@ ar6000_aggr_rcv_addba_req_evt(AR_SOFTC_DEV_T *arPriv, WMI_ADDBA_REQ_EVENT *evt)
     conn_t  *conn   = ieee80211_find_conn_for_aid(arPriv, connid);
 
     A_PRINTF("ADDBA REQ: tid=%d, connid=%d, status=%d, win_sz=%d\n", tid, connid, evt->status, evt->win_sz);
-    if(conn && evt->status == 0) {
+    if(((arPriv->arNetworkType == INFRA_NETWORK) || (conn != NULL)) && evt->status == 0) {
         aggr_recv_addba_req_evt(get_aggr_ctx(arPriv, conn), tid, evt->st_seq_no, evt->win_sz);
     }
 }
@@ -5573,7 +5575,7 @@ ar6000_aggr_rcv_delba_req_evt(AR_SOFTC_DEV_T *arPriv, WMI_DELBA_EVENT *evt)
     conn_t  *conn   = ieee80211_find_conn_for_aid(arPriv, connid);
 
     A_PRINTF("DELBA REQ: tid=%d, connid=%d\n", tid, connid);
-    if(conn) {
+    if((arPriv->arNetworkType == INFRA_NETWORK) || (conn != NULL)) {
         aggr_recv_delba_req_evt(get_aggr_ctx(arPriv, conn), tid);
     }
 }
