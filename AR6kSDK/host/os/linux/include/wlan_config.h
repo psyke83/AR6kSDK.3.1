@@ -75,7 +75,7 @@
  * 0 - CUT_POWER
  * 1 - DEEP_SLEEP (Default)
  */
-#define WLAN_CONFIG_WLAN_OFF                1
+#define WLAN_CONFIG_WLAN_OFF                0
 
 /*
  * This configuration item disables 11n support. 

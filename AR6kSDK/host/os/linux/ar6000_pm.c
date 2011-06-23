@@ -371,6 +371,7 @@ A_STATUS ar6000_suspend_ev(void *context)
     A_INT16 pmmode = ar->arSuspendConfig;
     A_INT32 i;
     A_BOOL needWow = FALSE;
+
 wow_not_connected:
     switch (pmmode) {
     case WLAN_SUSPEND_WOW:
@@ -424,8 +425,8 @@ wow_not_connected:
         if (!ar->arWlanOff && ar->arWlanPowerState==WLAN_POWER_STATE_CUT_PWR) {
             status = A_OK; 
         } else {
-            status = A_EBUSY; /* don't let mmc call sdio_init after resume */
-	    AR_DEBUG_PRINTF(ATH_DEBUG_PM, ("suspend with arWlanoff\n"));
+		status = A_OK;
+		AR_DEBUG_PRINTF(ATH_DEBUG_PM, ("ar6000 already cut-power...\n"));
         }
         break;
     }
