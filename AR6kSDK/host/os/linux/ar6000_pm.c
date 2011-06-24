@@ -371,7 +371,7 @@ A_STATUS ar6000_suspend_ev(void *context)
     A_INT16 pmmode = ar->arSuspendConfig;
     A_INT32 i;
     A_BOOL needWow = FALSE;
-
+    struct sdio_func *func = container_of(ar->osDevInfo.pOSDevice, struct sdio_func, dev);
 wow_not_connected:
     switch (pmmode) {
     case WLAN_SUSPEND_WOW:
@@ -382,7 +382,6 @@ wow_not_connected:
             }
         }
         if (ar->arWmiReady && ar->arWlanState==WLAN_ENABLED && needWow) {
-		struct sdio_func *func = container_of(ar->osDevInfo.pOSDevice, struct sdio_func, dev);
 		mmc_pm_flag_t flags = sdio_get_host_pm_caps(func);
 		if (!(flags & MMC_PM_KEEP_POWER)) {
 			AR_DEBUG_PRINTF(ATH_DEBUG_PM, ("%s: host driver don't support MMC_PM_KEEP_POWER\n", sdio_func_id(func)));
@@ -426,7 +425,8 @@ wow_not_connected:
             status = A_OK; 
         } else {
 		status = A_OK;
-		AR_DEBUG_PRINTF(ATH_DEBUG_PM, ("ar6000 already cut-power...\n"));
+		status = sdio_set_host_pm_flags(func, MMC_PM_KEEP_POWER);
+		AR_DEBUG_PRINTF(ATH_DEBUG_PM, ("ar6000 in !arWlanOff, keep MMC Power!...\n"));
         }
         break;
     }
