@@ -7,6 +7,8 @@
 #==============================================================================
 # Author(s): ="Atheros"
 #==============================================================================
+#Copyright (c) 2011 Freescale Semiconductor, Inc.
+#==============================================================================
 CLK_HELPER=0
 #WMODE="bg"
 IFNAME=`getprop wifi.interface wlan0`
@@ -125,7 +127,7 @@ loadapdriver() {
     setprop $DRIVER_PROP_NAME ""
     if $MODULE_CHECK; then
         $SYSLOG "Driver is initialized. load it"
-        wmiconfig -i wlap0 --wlan enable
+        wmiconfig -i wlap0 --wlan enable --allow_aggr 0x0 0x0
     else
         reload ifname=wlap0
     fi  
