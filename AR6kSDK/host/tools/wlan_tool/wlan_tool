@@ -97,6 +97,7 @@ init() {
     mkdir /data/misc/wifi/hostapd
     mkdir /data/system/wpa_supplicant /data/system/hostapd  
     chmod 770 /data/misc/wifi/wpa_supplicant /data/misc/wifi/hostapd
+    chmod 770 /data/system/wpa_supplicant /data/system/hostapd
     chown wifi.wifi /data/misc/wifi/wpa_supplicant /data/misc/wifi/hostapd
     chown wifi.wifi /data/system/wpa_supplicant /data/system/hostapd
     chown system.system /sys/devices/platform/msm_sdcc.1/detect_change
