@@ -27,4 +27,11 @@ ALL_PREBUILT += $(TARGET_OUT)/bin/wlan_tool
 $(TARGET_OUT)/bin/wlan_tool : $(LOCAL_PATH)/wlan_tool | $(ACP)
 	$(transform-prebuilt-to-target)
 
+# Add a seprate script for ar6102
+ALL_PREBUILT += $(TARGET_OUT)/bin/wlan_tool_6102
+
+$(TARGET_OUT)/bin/wlan_tool_6102 : $(LOCAL_PATH)/wlan_tool_6102 | $(ACP)
+	$(transform-prebuilt-to-target)
+
+
 endif
