@@ -70,7 +70,7 @@ reload() {
     if exp `getprop ro.build.version.sdk` == 8; then
         sleep 1
     fi
-    insmod /system/wifi/ar6000.ko $@
+    insmod /system/lib/modules/ar6102.ko $@
     
     if exp $CLK_HELPER == 1; then
         if exp $BT_ENABLED == 1; then
