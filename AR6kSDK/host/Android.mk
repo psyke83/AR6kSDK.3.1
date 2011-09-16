@@ -102,6 +102,7 @@ $(mod_cleanup) :
 	rm -f `find $(ATH_TARGET_OUTPUT)/$(ATH_ANDROID_SRC_BASE) -name "*.o"`
 	mkdir -p $(TARGET_OUT)/wifi/ath6k/AR6003/hw2.0/
 
+TARGET_PREBUILT_KERNEL := kernelimage
 mod_file := $(TARGET_OUT)/wifi/ar6000.ko
 $(mod_file) : $(mod_cleanup) $(TARGET_PREBUILT_KERNEL) $(ACP)
 	$(MAKE) ARCH=arm CROSS_COMPILE=$(ATH_CROSS_COMPILE_TYPE) -C $(ATH_LINUXPATH) ATH_HIF_TYPE=$(ATH_HIF_TYPE) PLAT_WOW_GPIO_PIN=$(board_wow_gpio) SUBDIRS=$(ATH_SRC_BASE)/os/linux modules
