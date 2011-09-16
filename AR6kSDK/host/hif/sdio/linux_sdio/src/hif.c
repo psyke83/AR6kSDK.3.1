@@ -1160,11 +1160,14 @@ static int hifDeviceResume(struct device *dev)
 }
 #endif /* CONFIG_PM */
 
+extern void sdhci_clock_enable(struct mmc_host *host, unsigned int enable);
+
 static void hifDeviceRemoved(struct sdio_func *func)
 {
     A_STATUS status = A_OK;
     HIF_DEVICE *device;
     AR_DEBUG_ASSERT(func != NULL);
+    struct mmc_host *host = func->card->host;
 
     AR_DEBUG_PRINTF(ATH_DEBUG_TRACE, ("AR6000: +hifDeviceRemoved\n"));
     device = getHifDevice(func);
@@ -1182,6 +1185,7 @@ static void hifDeviceRemoved(struct sdio_func *func)
     delHifDevice(device);
     AR_DEBUG_ASSERT(status == A_OK);
     AR_DEBUG_PRINTF(ATH_DEBUG_TRACE, ("AR6000: -hifDeviceRemoved\n"));
+    sdhci_clock_enable(host, 0);
 }
 
 /*
