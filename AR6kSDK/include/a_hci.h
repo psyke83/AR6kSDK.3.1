@@ -1,9 +1,12 @@
-/*- */
-/* Copyright (c) 2009-2010 Atheros Communications Inc. */
-/* All rights reserved. */
-/* $ATH_LICENSE_TARGET_C$ */
-/* */
-/* */
+//-
+// Copyright (c) 2009-2010 Atheros Communications Inc.
+// All rights reserved.
+// $ATH_LICENSE_TARGET_C$
+//
+//
+//
+//
+//
 
 
 #ifndef __A_HCI_H__
