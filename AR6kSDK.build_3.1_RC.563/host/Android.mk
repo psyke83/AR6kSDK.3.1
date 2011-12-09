@@ -106,6 +106,7 @@ mod_cleanup := $(ATH_TARGET_OUTPUT)/$(ATH_ANDROID_SRC_BASE)/dummy
 $(mod_cleanup) :
 	rm -f `find $(ATH_TARGET_OUTPUT)/$(ATH_ANDROID_SRC_BASE) -name "*.o"`
 	mkdir -p $(TARGET_OUT)/wifi/ath6k/AR6003/hw2.0/
+	mkdir -p $(TARGET_OUT)/wifi/ath6k/AR6003/hw2.1.1/
 
 ar6000_module_file := os/linux/ar6000.ko
 $(ATH_ANDROID_SRC_BASE)/host/$(ar6000_module_file) : $(mod_cleanup) $(TARGET_PREBUILT_KERNEL) $(ACP)
