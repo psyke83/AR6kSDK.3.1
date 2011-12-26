@@ -74,7 +74,7 @@ $(call add-ar6k-prebuilt-file,$(ar6k_hw21_src_dir)/otp.bin,$(ar6k_hw21_dst_dir),
 $(call add-ar6k-prebuilt-file,$(ar6k_hw21_src_dir)/athtcmd_ram.bin,$(ar6k_hw21_dst_dir),athtcmd_ram.bin,athtcmd221)
 $(call add-ar6k-prebuilt-file,$(ar6k_hw21_src_dir)/device.bin,$(ar6k_hw21_dst_dir),device.bin,athdevice221)
 $(call add-ar6k-prebuilt-file,support/fakeBoardData_AR6003_v2_0.bin,$(ar6k_hw21_dst_dir),bdata.SD31.bin,athdata221)
-$(call add-ar6k-prebuilt-file,,,,NULL)
+$(call add-ar6k-prebuilt-file,support/fakeBoardData_AR6003_v2_0.bin,$(ar6k_hw21_dst_dir),bdata.SD31.bin,athdataNULL221)
 
 
 ar6k_hw21_src_dir :=
