@@ -721,7 +721,7 @@ int android_ioctl_siwpriv(struct net_device *dev,
 static void ar6000_enable_mmchost_detect_change(int enable)
 {
 #ifdef CONFIG_MMC_MSM
-#define MMC_MSM_DEV "msm_sdcc.1"
+#define MMC_MSM_DEV "msm_sdcc.2"
     char buf[3];
     int length;
 
