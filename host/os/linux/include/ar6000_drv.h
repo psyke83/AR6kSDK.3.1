@@ -333,7 +333,7 @@ typedef enum _AR6K_BIN_FILE {
 #define AR6003_REV2_TESTSCRIPT_FILE			"ath6k/AR6003/hw2.0/testflow.bin"
 #define AR6003_REV2_UTF_FIRMWARE_FILE	    "ath6k/AR6003/hw2.0/utf.bin"
 #define AR6003_REV2_ART_FIRMWARE_FILE       "ath6k/AR6003/hw2.0/device.bin"
-#define AR6003_REV2_PATCH_FILE              "ath6k/AR6003/hw2.0/data.patch.hw2_0.bin"
+#define AR6003_REV2_PATCH_FILE              "ath6k/AR6003/hw2.0/data.patch.bin"
 #define AR6003_REV2_EPPING_FIRMWARE_FILE    "ath6k/AR6003/hw2.0/endpointping.bin"
 #ifdef AR600x_SD31_XXX
 #define AR6003_REV2_BOARD_DATA_FILE         "ath6k/AR6003/hw2.0/bdata.SD31.bin"
