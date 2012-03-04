@@ -136,8 +136,13 @@
 extern void plat_setup_power_stub(struct ar6_softc *ar, int on, int detect); 
 #define plat_setup_power(ar, on, detect) plat_setup_power_stub(ar, on, detect)
 #else
-extern void plat_wifi_power_ctrl( int on );
-#define plat_setup_power(ar, on, detect) plat_wifi_power_ctrl( on )	/* define as your function */
+
+#ifdef TARGET_EUROPA
+extern void wlan_setup_power(int on, int detect);
+#define plat_setup_power(ar, on, detect) wlan_setup_power(on, detect)
+#else
+#define plat_setup_power(ar, on, detect) /* define as your function */
 #endif
+#endif 
 
 #endif /* _HOST_WLAN_CONFIG_H_ */
