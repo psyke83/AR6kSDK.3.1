@@ -9,8 +9,9 @@
 #       ATH_CROSS_COMPILE_TYPE := < cross compiler path >
 #       ATH_LINUXPATH := < kernel source path >
 
-ATH_BSP_TYPE=< android product name >
-ATH_ANDROID_ROOT=< android sdk full path >
+ATH_BSP_TYPE=GT-I5500
+#ATH_ANDROID_ROOT=< android sdk full path >
+ATH_LINUXPATH := ../../kernel_samsung_europa
 
   # Kernel path
 ifeq ($(ATH_BSP_TYPE),$(filter $(ATH_BSP_TYPE),qsd8250_surf qsd8250_ffa msm7627_surf msm7627_ffa msm7627a msm7625_ffa msm7625_surf msm7630_surf))
@@ -64,6 +65,8 @@ endif
   ATH_AR6K_OTA_TEST_MODE := no
 
   # Some common variable
+  ATH_ARCH_CPU_TYPE := arm 
+  ATH_CROSS_COMPILE_TYPE := ../toolchain/bin/arm-eabi-
   ATH_BUS_TYPE := SDIO
   ATH_OS_SUB_TYPE := linux_2_6
   ATH_BUS_SUBTYPE := linux_sdio
