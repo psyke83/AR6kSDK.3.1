@@ -68,14 +68,14 @@
  * 1 - Enable
  * 0 - Disable (Default)
  */
-#define WLAN_CONFIG_BT_SHARING          0
+#define WLAN_CONFIG_BT_SHARING          1
 
 /*
  * This configuration item sets WIFI OFF policy
  * 0 - CUT_POWER
  * 1 - DEEP_SLEEP (Default)
  */
-#define WLAN_CONFIG_WLAN_OFF                1
+#define WLAN_CONFIG_WLAN_OFF                0
 
 /*
  * This configuration item disables 11n support. 
@@ -101,13 +101,13 @@
  * 2 - WoW
  * 3 - CUT_POWER if BT OFF (clock sharing designs only)
  */
-#define WLAN_CONFIG_PM_WOW2                 1
+#define WLAN_CONFIG_PM_WOW2                 3
 
 /* 
  * Define GPIO number for WoW in your platform other than zero 
  * Wake lock will be called when GPIO asserted. 
  */
-#define PLAT_WOW_GPIO_PIN                  (4*32 + 26)	/* GPIO_5_26 */
+#define PLAT_WOW_GPIO_PIN                  0
 
 /*
  * This configuration item for the WOW patterns in AP mode
