@@ -59,7 +59,7 @@ endif
   # Some environment settings
   ATH_BUILD_TYPE=$(ATH_BSP_TYPE)_ARM_NATIVEMMC
   ATH_ANDROID_ENV := yes
-  ATH_SOFTMAC_FILE_USED := no
+  ATH_SOFTMAC_FILE_USED := yes
   ATH_DEBUG_DRIVER := yes
   ATH_HTC_RAW_INT_ENV :=yes
   ATH_AR6K_OTA_TEST_MODE := no
