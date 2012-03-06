@@ -966,7 +966,7 @@ fail:
 static void ar6000_enable_mmchost_detect_change(int enable)
 {
 #ifdef CONFIG_MMC_MSM
-#if defined(CONFIG_MMC_MSM) && defined(CONFIG_ARCH_MSM7X27) && defined(CONFIG_MSM_SOC_REV_A)
+#if defined(CONFIG_MMC_MSM) && defined(CONFIG_ARCH_MSM7X27) && defined(CONFIG_MSM_SOC_REV_A) || defined(CONFIG_MACH_EUROPA)
 #define MMC_MSM_DEV "msm_sdcc.2"
 #else
 #define MMC_MSM_DEV "msm_sdcc.1"
