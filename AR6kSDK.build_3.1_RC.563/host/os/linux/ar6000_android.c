@@ -282,6 +282,11 @@ int android_request_firmware(const struct firmware **firmware_p, const char *nam
 		return -ENOMEM;
     A_MEMZERO(firmware, sizeof(*firmware));
 	sprintf(filename, "%s/%s", fwpath, raw_filename);
+#ifdef CONFIG_MACH_EUROPA
+    if (strcmp(raw_filename, "softmac")==0) {
+        sprintf(filename, "/data/.nvmac.info");
+    }
+#endif /* CONFIG_MACH_EUROPA */
     do {
         size_t length, bufsize, bmisize;
 
