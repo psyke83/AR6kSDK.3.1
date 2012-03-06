@@ -633,7 +633,7 @@ static struct platform_driver ar6000_pm_device = {
     .suspend    = ar6000_pm_suspend,
     .resume     = ar6000_pm_resume,
     .driver     = {
-        .name = "wlan_ar6000_pm_dev",
+        .name = "wlan_ar6000_pm",
     },
 };
 #endif 
