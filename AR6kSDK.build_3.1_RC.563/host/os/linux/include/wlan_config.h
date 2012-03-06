@@ -142,6 +142,9 @@ extern void plat_setup_power_stub(struct ar6_softc *ar, int on, int detect);
 #elif defined(CONFIG_MMC_MSM) && defined(CONFIG_ARCH_MSM7X27) && defined(CONFIG_MSM_SOC_REV_A) 
 extern void msm7x27a_wifi_power(bool on);
 #define plat_setup_power(ar, on, detect) msm7x27a_wifi_power(on) 
+#elif defined(CONFIG_MMC_MSM) && defined(CONFIG_ARCH_MSM7X27) && defined(CONFIG_MACH_EUROPA) 
+extern void wlan_setup_power(int on, int detect);
+#define plat_setup_power(ar, on, detect) wlan_setup_power(on, detect)
 #else
 #define plat_setup_power(ar, on, detect) /* define as your function */
 #endif 
